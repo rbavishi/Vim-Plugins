@@ -20,12 +20,22 @@ set wildmode=longest,list,full
 set wildmenu
 
 "Needed for ctags"
-set tags=./tags,tags
+" set tags="/home/rbavishi/CBMC\ -\ Bug\ Clustering\ Project/cbmc-5.0/src/tags"
+set tags=tags;/
 
 "Using tab to browse between buffers. Doesn't work
 nnoremap <silent> <C-Tab> :bn<CR>
 nnoremap <silent> <C-S-Tab> :bp<CR>
+map <F2> :mksession! ~/.vim_session <cr> 
+" Quick write session with F2
+map <F3> :source ~/.vim_session <cr>   
+" And load session with F3
 
+" :noh
+"nnoremap <CR> :noh<CR><CR>
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+command -bar -nargs=1 -complete=file Source :source <args> | :q | :q
+nnoremap <silent> <C-k> :MBEToggleAll<CR> :MBEToggleAll<CR> :MBEToggleAll<CR>
 
 "Lid customizations"
 "let LID_Jump_To_Match = 0
@@ -34,12 +44,12 @@ nnoremap <silent> <C-S-Tab> :bp<CR>
 
 map _u :call ID_search()<Bar>execute "/\\<" . g:word . "\\>"<CR>
 map _n :n<Bar>execute "/\\<" . g:word . "\\>"<CR>
-function ID_search()
-    let g:word = expand("<cword>")
-    let x = system("lid --key=none ". g:word)
-    let x = substitute(x, "\n", " ", "g")
-    execute "next " . x
-endfun
+"function ID_search()
+    "let g:word = expand("<cword>")
+    "let x = system("lid --key=none ". g:word)
+    "let x = substitute(x, "\n", " ", "g")
+    "execute "next " . x
+"endfun
 
 " Taglist, move to the next/previous tag
 map + :tn<CR>
@@ -56,8 +66,8 @@ filetype plugin indent on
 filetype plugin on
 autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 " Settings for solarized colorscheme"
-"syntax enable
-"set background=white
+syntax enable
+"set background=dark
 "let g:solarized_termcolors=256
 "colorscheme solarized
 
@@ -82,11 +92,15 @@ autocmd BufNewFile,BufReadPost *.md set filetype=markdown
 "syntax on
 
 "CodeSchool theme
-"colorscheme xoria256
-colorscheme desertink
+colorscheme xoria256
+"colorscheme solarized
+"colorscheme desertink
 "colorscheme railscasts
 "colorscheme distinguished
 "colorscheme codeschool
+"colorscheme Miranda
+"colorscheme jellybeans_modified
+"colorscheme Shivanee
 "let g:codeschool_termcolors=256
 "highlight Normal ctermfg=white ctermbg=black
 "Display airline even when there is no vsplit                                                                                                     
@@ -117,3 +131,10 @@ let @h="#include<bits/stdc++.h>\n#define pb(a) push_back(a)\n#define mp(a,b) mak
 let mapleader = ","
 let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 nnoremap <C-w>E :SyntasticCheck<CR> :SyntasticToggleMode<CR>
+let g:no_atp=1
+set shiftwidth=4
+set expandtab
+nmap "" <leader>ci
+nmap <C-Z> :bn<cr>
+nmap <C-A> :bp<cr>
+let g:ycm_autoclose_preview_window_after_insertion = 1
